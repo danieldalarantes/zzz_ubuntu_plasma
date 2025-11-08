@@ -1,0 +1,69 @@
+# /etc/default/grub: configures boot entry generation for GRUB menu.
+#
+# Run update-grub or "grub-mkconfig -o /boot/grub/grub.cfg" after modifying this file to
+# update /boot/grub/grub.cfg (GRUB menu). Documentation for this file is available at:
+# https://www.gnu.org/software/grub/manual/grub/html_node/Simple-configuration.html
+
+# Uncomment to enable os-prober. If there are other operating systems
+# installed, os-prober can be run to generate their boot entries.
+# However, if those operating systems use either LVM, encrypted
+# volumes, or raw disks, running os-prober can be problematic
+# since it attempts to mount their filesystems for probing.
+# GRUB_DISABLE_OS_PROBER=false
+
+# Uncomment to filter out bad RAM, modifying as needed. This
+# filtering works with Linux Kernel (no patch required) and
+# with any kernel that obtains the memory map information
+# from GRUB, such as GNU Mach Kernel and FreeBSD Kernel.
+# GRUB_BADRAM=0x01234567,0xfefefefe,0x89abcdef,0xefefefef
+
+# Uncomment to disable the graphical terminal.
+# GRUB_TERMINAL=console
+
+# Uncomment to select the graphical terminal resolution. Only
+# modes supported through VBE should be chosen. The vbeinfo
+# command can be run at GRUB command prompt to list them.
+# GRUB_GFXMODE=640x480
+
+# Uncomment to prevent any UUID from appearing in Linux Kernel command line.
+# GRUB_DISABLE_LINUX_UUID=true
+
+# Uncomment to prevent any rescue-mode boot entries from being generated.
+# GRUB_DISABLE_RECOVERY=true
+
+# Uncomment to enable the beeping sound right after GRUB starts.
+# GRUB_INIT_TUNE="480 440 1"
+
+# On every boot: opting for true suspend-to-RAM actions at the
+# kernel level to maximize power savings. This option also
+# relies on the SuspendState=mem parameter being included
+# in /etc/systemd/sleep.conf.d/ to become effective.
+GRUB_CMDLINE_LINUX=" \
+mem_sleep_default=deep \
+"
+
+# On normal boot: specifying swap file to enable resume, using the
+# filesystem UUID and the swap file offset. Specifying swap file
+# again to enable swap space, using the swap file path instead
+# since the filesystem is already mounted at that stage.
+GRUB_CMDLINE_LINUX_DEFAULT=" \
+resume=UUID=ca0883be-e260-44f0-a33f-56785ed8734e \
+resume_offset=55646208 \
+systemd.swap-extra=/swap.img \
+"
+
+# On rescue-mode boot: preventing any swap file from being used
+# for resume, selecting rescue-mode boot, and preventing any
+# swap file from being used as swap space.
+GRUB_CMDLINE_LINUX_RECOVERY=" \
+noresume \
+rescue \
+systemd.swap=no \
+"
+
+# Using only the main page of GRUB menu to display all boot entries.
+GRUB_DISABLE_SUBMENU=true
+
+# Informing the operating system name, used by GRUB scripts to
+# label boot entries and to apply themes in GRUB menu.
+GRUB_DISTRIBUTOR=Ubuntu

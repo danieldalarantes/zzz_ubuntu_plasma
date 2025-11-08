@@ -1,0 +1,20 @@
+# /etc/fstab: configures filesystem mounting for initial boot stages.
+#
+# Filesystems should be specified by using their UUIDs, since this
+# format enables them to be identified and mounted correctly even
+# after adding or removing other filesystems. The blkid command
+# can be run to list the universally unique identifier of each
+# filesystem. Documentation for this file is available at:
+# https://man7.org/linux/man-pages/man5/fstab.5.html
+#
+# Any swap file used to save session images should not be included in this
+# table. Instead, the swap file path should be specified to systemd by
+# including the systemd.swap-extra parameter in Linux Kernel command
+# line. This method enables saved session images to persist during
+# rescue-mode boot by omitting that parameter.
+#
+# |===========================================|=============|==========|===============|======|===========|
+# | fs. identification                        | mount point | fs. type | mount options | dump | fs. check |
+# |===========================================|=============|==========|===============|======|===========|
+    UUID=ca0883be-e260-44f0-a33f-56785ed8734e   /             ext4       defaults        0      1
+    UUID=6A1C-C7D3                              /boot/efi/    vfat       defaults        0      2
